@@ -3,6 +3,7 @@
 #define sari 7
 #define yesil 6  
 int LM35_Pini = A0;
+unsigned long sonZaman = 0;
 LiquidCrystal LCD_Ekran(12, 11, 5, 4, 3, 2);
 void setup() 
 {
@@ -25,7 +26,7 @@ void loop()
     digitalWrite(kirmizi,LOW);
     digitalWrite(sari,LOW);
     digitalWrite(yesil,HIGH);
-  }else if(sicaklikDerecesi>=15 and sicaklikDerecesi<=25)
+  }else if(sicaklikDerecesi>=25 and sicaklikDerecesi<=35)
   {
     digitalWrite(kirmizi,LOW);
     digitalWrite(sari,HIGH);
@@ -41,4 +42,13 @@ void loop()
   LCD_Ekran.setCursor(6,1);
   LCD_Ekran.print("\337C");
   delay(1000);
+  /*Ekran yanmasını engelleyelim*/
+  if (millis() - sonZaman > 10000) 
+  {
+    delay(2000);
+    LCD_Ekran.clear();
+    sonZaman = millis();
+    delay(2000); 
+    LCD_Ekran.print("Ortam Sicakligi");                        
+  }
 }
